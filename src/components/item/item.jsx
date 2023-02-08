@@ -21,7 +21,7 @@ function handleOnDragEnd(result) {
     
     <DragDropContext onDragEnd={handleOnDragEnd} >
       <Droppable  droppableId="items">
-        {(provided,index) => (
+        {(provided) => (
           <Container {...provided.droppableProps} ref={provided.innerRef}>
             {todos?.map((todo,index) =>  (
               <TodoItem key={todo.id} tasks = {todo} index={index}/>

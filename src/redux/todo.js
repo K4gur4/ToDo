@@ -17,7 +17,7 @@ const todoSlice = createSlice({
         (obj) => obj === action.payload
       );
       newTodos.splice(objIndex, 1);
-      state.products = [...newTodos];
+      state.todos = [...newTodos];
       },
       updateTodo (state,action){
         if(action.payload!==state.todos)
@@ -25,8 +25,17 @@ const todoSlice = createSlice({
           state.todos=action.payload
         }
         console.log('updated');
+      },
+      editTodo (state,action) {
+        console.log(action.payload);
+        const newTodos = state.todos;
+      const objIndex = newTodos.findIndex(
+        (obj) => obj.id === action.payload.id
+      );
+      newTodos.splice(objIndex, 1);
+      state.todos = [...newTodos,action.payload];
       }
     }
   });
-  export const { addTodo, removeTodo,updateTodo} = todoSlice.actions;
+  export const { addTodo, removeTodo,updateTodo,editTodo} = todoSlice.actions;
   export default todoSlice.reducer;

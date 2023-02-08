@@ -1,5 +1,5 @@
 import { Container, Icon, Title, Action } from "./todoStyle";
-import { removeTodo } from "../../redux/todo";
+import todo, { editTodo, removeTodo } from "../../redux/todo";
 import { Draggable } from "react-beautiful-dnd";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -10,15 +10,10 @@ import { useSelector } from "react-redux/es/exports";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 const TodoItem = ({ tasks, index }) => {
-  console.log(tasks);
-
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos);
-  console.log(todos);
   const [check, setCheck] = useState(tasks.checked);
   const [edit, setEdit] = useState(false);
-  const [update, setUpdate] = useState("");
-  console.log(tasks.id, check);
+  const [update, setUpdate] = useState('');
   const handleCompleted = (id) => {
     setCheck(!check);
   };
@@ -29,15 +24,18 @@ const TodoItem = ({ tasks, index }) => {
     setEdit(!edit);
   };
   const handleUpdate = (id) => {
-  
+    console.log(id);
     if (update.length === 0) {
       alert("Update Somthing");
     } else {
-      
+      let a= {...tasks}
+      a.name= update
+      console.log(a);
+      dispatch(editTodo(a))
       setEdit(!edit)
     }
   };
-
+  
   return (
     <Draggable key={index} draggableId={String(tasks.id)} index={index}>
       {(provided) => (
